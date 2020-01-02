@@ -1,1 +1,122 @@
-Hello World
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Consommation de données</title>
+    <!-- Load d3.js -->
+    <script src="https://d3js.org/d3.v4.js"></script>
+
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-lg-12 ">
+                    <h1 class="display-1">Consommation</h1>
+                    <p class="display-4 text-black-50">de données des réseaux sociaux sur mobiles</p>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main role="main">
+        <!-- Marketing messaging and featurettes
+      ================================================== -->
+        <!-- Wrap the rest of the page in another container to center all the content. -->
+        <div class="container marketing">
+            <!-- Three columns of text -->
+            <div class="row bg-light">
+                <h2 class="featurette-heading ">Pourquoi ce sujet?</h2>
+            </div>
+            <div class="row bg-light">
+                <div class="col-lg-4">
+                    <img src="img/social-media.svg" alt="social-media image" width="140" height="140">
+                    <h2>Importance des réseaux sociaux</h2>
+                    <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh
+                        ultricies
+                        vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent
+                        commodo cursus
+                        magna.</p>
+                </div><!-- /.col-lg-4 -->
+                <div class="col-lg-4">
+                    <img src="img/graph.svg" alt="search" width="140" height="140">
+                    <h2>Détecter les applications consommatrices</h2>
+                    <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.
+                        Cras
+                        mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor
+                        mauris
+                        condimentum nibh.</p>
+                </div><!-- /.col-lg-4 -->
+                <div class="col-lg-4">
+                    <img src="img/creative.svg" alt="creative image" width="140" height="140">
+                    <h2>Prendre conscience</h2>
+                    <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id
+                        ligula porta
+                        felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh,
+                        ut fermentum
+                        massa justo sit amet risus.</p>
+                </div><!-- /.col-lg-4 -->
+            </div><!-- /.row -->
+
+
+            <!-- START THE FEATURETTES -->
+            <hr class="featurette-divider">
+
+            <div class="row featurette">
+                <div class="col-md-7 order-md-2">
+                    <h2 class="featurette-heading"> Diagramme comparatif des applications mobiles </h2>
+                    <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis
+                        euismod
+                        semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus
+                        ac cursus
+                        commodo.</p>
+                </div>
+                <div class="col-md-5 order-md-1" id="graph1">
+                </div>
+            </div>
+
+            <hr class="featurette-divider">
+
+            <div class="row featurette ">
+                <div class="col-md-7">
+                    <h2 class="featurette-heading">Prendre conscience de l'impact environnemental?</h2>
+                    <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis
+                        euismod
+                        semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus
+                        ac cursus
+                        commodo.</p>
+                </div>
+                <div class="col-md-5" id="graph2">
+                </div>
+            </div>
+
+            <hr class="featurette-divider">
+
+            <!-- /END THE FEATURETTES -->
+
+        </div><!-- /.container -->
+
+        <!-- FOOTER -->
+        <footer class="container">
+            <p class="float-right"><a href="#">Back to top</a></p>
+            <p>&copy; 2019-2020 Groupe 19.</p>
+        </footer>
+        <!-- D3.js files -->
+        <script src="graph1.js"></script>
+        <script src="graph2.js"></script>   
+
+    </main>
+</body>
+
+</html>
