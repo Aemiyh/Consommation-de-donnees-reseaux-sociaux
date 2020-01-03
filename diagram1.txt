@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<head>
+
+  <meta charset="utf-8">
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+  <style>
+    body{
+				font-family:"Lato";
+		}
+    h1 {
+      margin: 0px 0px 15px 20px;
+    }
+
+    .bar1 {
+      fill: steelblue;
+    }
+    .bar2{
+      fill: #FF6865;
+    }
+
+    .bar1:hover {
+      fill: blue;
+    }
+    .bar2:hover {
+      fill: red;
+    }
+    .label {
+      fill: black;
+      font: 10px sans-serif;
+    }
+
+    .y path, .y stroke, .y line {
+      display: none;
+    }
+
+    .x path, .x stroke {
+      display: none;
+    }
+
+  </style>
+
+</head>
+  <select id="d3-dropdown">
+    <option value="alphabetique">Alphabétique</option>
+    <option value="frequence">Fréquence</option>
+    <option value="poids">Poids</option>
+ </select>
+<h1>Frequency of Letters Used in the English/French Language</h1>
+<body>
+  
+
+  <script>
+
+    var margin = {
+        top: 20,
+        right: 20,
+        bottom: 30,
+        left: 40
+      };
+    var width = 470 - margin.left - margin.right;
+    var height = 470 - margin.top - margin.bottom;
+
+    var chart1 = d3.select("body").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+   	
+
+    var x = d3.scaleLinear().range([0, width]);
+
+    var y = d3.scaleBand().range([height - 50, 0]);
+
+    var xAxis = d3.axisTop(x).ticks(10, "%");
+    var yAxis = d3.axisLeft(y);
+
+    var bandwidth = 0;
+    
+    // Premiere page
+    d3.csv("consommation_donnees.csv").then(function(data) {
+      updateChart(chart1,data,1);
+      switchCase(selected,chart1,1);
+    });// fin load
+		
+  
+    d3.select("select").on("change",function(d){
+        var selected = d3.select("#d3-dropdown").node().value;
+        
+        console.log(selected);
+      	// 	ANGLAIS
+        d3.csv("data.csv").then(function(data) {
+          updateChart(chart1,data,1);
+          switchCase(selected,chart1,1);
+        });// fin load      
+
+      }); //fin select
+    
+
+    
+    // Switch menu
+    function switchCase(selected,svg,int){
+      
+      switch (selected) {
+          case "alphabetique":
+                svg.selectAll(".bar"+int)
+                .sort((a, b) => d3.ascending(a.letter, b.letter))
+                .transition().duration(300)
+                .attr("y", function(d, i) {
+                return y(i);
+              });
+                svg.append("g").selectAll("text")
+                .sort((a, b) => d3.ascending(a.letter, b.letter))
+                .transition().duration(300)
+                .attr("y", function(d, i) {
+                return y(i);
+              });
+
+
+            break;
+            
+          case "frequence":
+              svg.selectAll(".bar"+int)
+              .sort((a, b) => d3.ascending(a.frequency, b.frequency))
+              .transition().duration(300)
+              .attr("y", function(d, i) {
+              return y(i);
+            });
+
+            svg.append("g").selectAll("text")
+              .sort((a, b) => d3.ascending(a.frequency, b.frequency))
+              .transition().duration(300)
+              .attr("y", function(d, i) {
+              return y(i);
+            });
+   
+         case "poids":
+             svg.selectAll(".bar"+int)
+            .sort((a, b) => d3.descending(a.weight, b.weight))
+            .transition().duration(300)
+            .attr("y", function(d, i) {
+            return y(i);
+          });
+
+          svg.append("g").selectAll("text")
+            .sort((a, b) => d3.descending(a.weight, b.weight))
+            .transition().duration(300)
+            .attr("y", function(d, i) {
+            return y(i);
+          });
+          break;
+        }//fin switch
+    }
+   
+    //Ajout chart
+    function updateChart(svg,data,int){
+      svg.selectAll("*").remove();
+     //Inverser l'ordre des lignes
+      data.sort(function(a, b) {
+        return d3.descending(a.letter, b.letter)
+      });
+      var maxFrequency = d3.max(data, function(d) { return d.frequency; });
+      x.domain([0, maxFrequency]);
+
+      y.domain(data.map(function(d,i) { return i; }))
+        .paddingInner(0.1);
+
+      svg.append("g")
+        .attr("class", "xaxis")
+        .attr("transform", "translate(0," + -2 + ")")
+        .call(xAxis);
+
+      var g = svg.append("g");
+
+      g.attr("class", "y axis")
+        .attr("transform", `translate(${-10},${y.bandwidth()})`);
+
+      g.selectAll("text")
+        .data(data)
+        .enter().append("text")
+        .text(function(d) { return d.letter.toUpperCase(); })
+        .attr("class", "label")
+        .attr("x", 0)
+        .attr("y", function(d,i) { return y(i); })
+        .attr("dy", -2);
+
+      svg.selectAll(".bar"+int)
+        .data(data)
+        .enter().append("rect")
+        .attr("class", "bar"+int)
+        .attr("x", -2)
+        .attr("height", function(d) {
+        bandwidth = y.bandwidth();
+        return bandwidth;
+      })
+        .attr("y", function(d, i) { return y(i); })
+        .attr("width", function(d) { return x(d.frequency); })
+        .on("mouseover", function(d) {
+        //do
+        })
+        .on("mouseout", function(d) {
+        //do
+        });
+     }
+    
+
+  </script>
