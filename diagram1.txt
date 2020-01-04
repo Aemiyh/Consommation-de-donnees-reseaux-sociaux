@@ -7,8 +7,8 @@
 
   <style>
     body{
-				font-family:"Lato";
-		}
+        font-family:"Lato";
+    }
     h1 {
       margin: 0px 0px 15px 20px;
     } 
@@ -54,7 +54,7 @@
         bottom: 30,
         left: 40
       };
-    var width = 470 - margin.left - margin.right;
+    var width = 800 - margin.left - margin.right;
     var height = 470 - margin.top - margin.bottom;
 
     var chart1 = d3.select("body").append("svg")
@@ -62,13 +62,13 @@
         .attr("height", height + margin.top + margin.bottom)
       .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-   	
-		console.log(height)
-    var x = d3.scaleLinear().range([0, width]);
+    
+    console.log(height)
+    var scaleX = d3.scaleLinear().range([100, width]);
 
     var y = d3.scaleBand().range([height - 50, 0]);
 
-    var xAxis = d3.axisTop(x).ticks(10, "%");
+    var xAxis = d3.axisTop(scaleX).ticks(10, "%");
     var yAxis = d3.axisLeft(y);
 
     var bandwidth = 0;
@@ -77,16 +77,10 @@
     d3.csv("donnees_App_Mobile.csv")
       .then(function(data) 
         {
-      		updateChart(chart1,data,1);
-    		});// fin load
-		
-
+          updateChart(chart1,data,1);
+        });// fin load
     
 
-    
-    
-    
-   
     //Ajout chart
     function updateChart(svg,data,int){
       //svg.selectAll("*").remove();
@@ -96,7 +90,7 @@
       });
       var maxFrequency = d3.max(data, function(d) { return d.frequency; });
       
-      x.domain([0, 1]);
+      scaleX.domain([0, 1]);
 
       y.domain(data.map(function(d,i) { console.log("");return i; }))
         .paddingInner(0.1);
@@ -107,11 +101,11 @@
         .call(xAxis);
 
       var g = svg.append("g"); 
-			
+      
       console.log(y.bandwidth())
       g.attr("class", "y axis")
         .attr("transform", `translate(${-10},${y.bandwidth()})`);
-
+      // Affichage des libéllés
       g.selectAll("text")
         .data(data)
         .enter().append("text")
@@ -120,18 +114,16 @@
         .attr("x", 0)
         .attr("y", function(d,i) { return y(i); })
         .attr("dy", -2);
-
+      
+      // Affichage des bar
       svg.selectAll(".bar"+int)
         .data(data)
         .enter().append("rect")
         .attr("class", "bar"+int)
-        .attr("x", -2)
-        .attr("height", function(d) {
-        bandwidth = y.bandwidth();
-        return bandwidth;
-      })
-        .attr("y", function(d, i) { return y(i); })
-        .attr("width", function(d) { return x(d.somme); })
+        .attr("x", 100)
+        .attr("height", 15)
+        .attr("y", function(d, i) { return y(i) + 7.5; })
+        .attr("width", function(d) { return scaleX(d.Pourcentage) - 100; })
         .on("mouseover", function(d) {
         //do
         })
