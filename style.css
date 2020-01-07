@@ -1,12 +1,12 @@
 /* GLOBAL STYLES
 -------------------------------------------------- */
 /* Padding below the footer and lighter body text */
-
+@import url("https://fonts.googleapis.com/css?family=Neucha|Cabin+Sketch");
 body {
   padding-top: 3rem;
   padding-bottom: 3rem;
   color: #5a5a5a;
-  font-family: Verdana;
+  font-family: "Neucha", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 img{
@@ -17,6 +17,12 @@ img{
   padding-right: 35px;
 }
 
+.masthead{
+  padding: 8em;
+}
+.display-1{
+  font-family: "Cabin Sketch";
+}
 
 /* MARKETING CONTENT
 -------------------------------------------------- */
