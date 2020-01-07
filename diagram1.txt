@@ -115,7 +115,7 @@
         .attr("y", function(d,i) { return y(i); })
         .attr("dy", -2);
       
-      // Affichage des bar
+      // Affichage des baryyy
       svg.selectAll(".bar"+int)
         .data(data)
         .enter().append("rect")
