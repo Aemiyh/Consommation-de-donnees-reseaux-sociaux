@@ -6,6 +6,6 @@ Groupe 19:
  * Aissatou DIALLO
  * Boubacar DIALLO
 
-github page :https://aemiyh.github.io/dataviz/
+github page :https://aemiyh.github.io/Consommation-de-donnees-reseaux-sociaux/
 
 
