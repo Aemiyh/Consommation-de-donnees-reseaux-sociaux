@@ -1,53 +1,88 @@
-// set the dimensions and margins of the graph
-var margin = {top: 10, right: 30, bottom: 30, left: 40},
-    width = 460 - margin.left - margin.right,
-    height = 400 - margin.top - margin.bottom;
+ var margin = {
+        top: 20,
+        right: 20,
+        bottom: 30,
+        left: 40
+      };
+    var width = 800 - margin.left - margin.right;
+    var height = 470 - margin.top - margin.bottom;
 
-// append the svg object to the body of the page
-var svg = d3.select("#graph1")
-    .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-    .attr("transform",
-        "translate(" + margin.left + "," + margin.top + ")");
+    var chart1 = d3.select("body").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    
+    console.log(height)
+    var scaleX = d3.scaleLinear().range([100, width]);
 
-// get the data
-d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/1_OneNum.csv", function (data) {
+    var y = d3.scaleBand().range([height - 50, 0]);
 
-    // X axis: scale and draw:
-    var x = d3.scaleLinear()
-        .domain([0, 1000])     // can use this instead of 1000 to have the max of data: d3.max(data, function(d) { return +d.price })
-        .range([0, width]);
-    svg.append("g")
-        .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(x));
+    var xAxis = d3.axisTop(scaleX).ticks(10, "%");
+    //var yAxis = d3.axisLeft(y);
 
-    // set the parameters for the histogram
-    var histogram = d3.histogram()
-        .value(function (d) { return d.price; })   // I need to give the vector of value
-        .domain(x.domain())  // then the domain of the graphic
-        .thresholds(x.ticks(70)); // then the numbers of bins
+    var bandwidth = 0;
+    
+    // Premiere page
+    d3.csv("donnees_App_Mobile.csv")
+      .then(function(data) 
+        {
+          updateChart(chart1,data,1);
+        });// fin load
+    
 
-    // And apply this function to data to get the bins
-    var bins = histogram(data);
+    //Ajout chart
+    function updateChart(svg,data,int){
+      //svg.selectAll("*").remove();
+     //Inverser l'ordre des lignes
+      data.sort(function(a, b) {
+        return d3.descending(a.application, b.application)
+      });
+      var maxFrequency = d3.max(data, function(d) { return d.frequency; });
+      
+      scaleX.domain([0, 1]);
 
-    // Y axis: scale and draw:
-    var y = d3.scaleLinear()
-        .range([height, 0]);
-    y.domain([0, d3.max(bins, function (d) { return d.length; })]);   // d3.hist has to be called before the Y axis obviously
-    svg.append("g")
-        .call(d3.axisLeft(y));
+      y.domain(data.map(function(d,i) { console.log("");return i; }))
+        .paddingInner(0.1);
 
-    // append the bar rectangles to the svg element
-    svg.selectAll("rect")
-        .data(bins)
+      svg.append("g")
+        .attr("class", "xaxis")
+        .attr("transform", "translate(0," + -2 + ")")
+        .call(xAxis);
+
+      var g = svg.append("g"); 
+      
+      console.log(y.bandwidth())
+      g.attr("class", "y axis")
+        .attr("transform", `translate(${-10},${y.bandwidth()})`);
+      // Affichage des libéllés
+      g.selectAll("text")
+        .data(data)
+        .enter().append("text")
+        .text(function(d) { return d.application.toUpperCase(); })
+        .attr("class", "label")
+        .attr("x", 0)
+        .attr("y", function(d,i) { return y(i); })
+        .attr("dy", -2);
+      
+      // Affichage des bar
+      test = svg.selectAll(".bar"+int)
+        .data(data)
         .enter()
-        .append("rect")
-        .attr("x", 1)
-        .attr("transform", function (d) { return "translate(" + x(d.x0) + "," + y(d.length) + ")"; })
-        .attr("width", function (d) { return x(d.x1) - x(d.x0) - 1; })
-        .attr("height", function (d) { return height - y(d.length); })
-        .style("fill", "#69b3a2")
-
-});
+        test.append("rect")
+        .attr("class", "bar"+int)
+        .attr("x", 100)
+        .attr("height", 15)
+        .attr("y", function(d, i) { return y(i) + 7.5; })
+        .attr("width", function(d) { return scaleX(d.Pourcentage) - 100; })
+        .on("mouseover", function(d) {
+        //do
+        })
+        .on("mouseout", function(d) {
+        //do_some
+        }); 
+        test.append("text")
+        .attr("x", function(d) { return scaleX(d.Pourcentage*1.1)})
+        .text(d => (d.Pourcentage*100).toFixed(2) + " %")
+        .attr("y", function(d, i) { return y(i) + 20.5; })
+     }
