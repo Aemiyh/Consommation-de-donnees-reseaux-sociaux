@@ -19,65 +19,123 @@
 
     var y = d3.scaleBand().range([height - 50, 10]);
 
-    var xAxis = d3.axisTop(scaleX).ticks(10, "%");
+    
     //var yAxis = d3.axisLeft(y);
 
     var bandwidth = 0;
      
     // Premiere page
     
-    d3.csv("https://raw.githubusercontent.com/Aemiyh/Consommation-de-donnees-reseaux-sociaux/master/donnees_App_Mobile.csv", function (data) {
+    d3.csv("https://raw.githubusercontent.com/Aemiyh/Consommation-de-donnees-reseaux-sociaux/master/donnees_App_Mobile.csv", function (data) 
+    {
 
-          //updateChart(svg,data,1);
+          updateChart(svg,data,1);
+          switchCase(selected,svg);
 
-            data.sort(function(a, b) {
-          return d3.descending(a.application, b.application)
-        });
-  
+            
+    });// fin load
+
+    // debut select
+    d3.select("select").on("change",function(d)
+    {
+        var selected = d3.select("#d3-dropdown").node().value;
         
-        scaleX.domain([0, 1]);
-
-        y.domain(data.map(function(d,i) {return i; }))
-          .paddingInner(0.1);
-
-        svg.append("g")
-          .attr("class", "xaxis")
-          .attr("transform", "translate(0," + 10 + ")")
-          .call(xAxis);
-
-        var g = svg.append("g"); 
         
-        console.log(y.bandwidth())
-        g.attr("class", "y axis")
-          .attr("transform", `translate(${-10},${y.bandwidth()})`);
-        // Affichage des libéllés
-        g.selectAll("text")
-          .data(data)
-          .enter().append("text")
-          .text(function(d) { return d.application.toUpperCase(); })
-          .attr("class", "label")
-          .attr("x", 0)
-          .attr("y", function(d,i) { return y(i)+5; })
-          .attr("dy", -2);
-        
-        // Affichage des bar
-        test = svg.selectAll(".bar")
-          .data(data)
-          .enter()
-          test.append("rect")
-          .attr("class", "bar")
-          .attr("x", 100)
-          .attr("height", 15)
-          .attr("y", function(d, i) { return y(i) + 7.5; })
-          .attr("width", function(d) { return scaleX(d.Pourcentage) - 100; })
-          .on("mouseover", function(d) {
-          //do
-          })
-          .on("mouseout", function(d) {
-          //do_some
-          }); 
-          test.append("text")
-          .attr("x", function(d) { return scaleX(d.Pourcentage*1.1)})
-          .text(d => (d.Pourcentage*100).toFixed(2) + " %")
-          .attr("y", function(d, i) { return y(i) + 20.5; })
+        d3.csv("https://raw.githubusercontent.com/Aemiyh/Consommation-de-donnees-reseaux-sociaux/master/donnees_App_Mobile.csv", function(data) 
+        {
+          updateChart(svg,data);
+          switchCase(selected,svg);
         });// fin load
+
+      }); //fin select
+
+    // Switch menu
+    function switchCase(selected,svg){
+      
+      switch (selected) {
+          case "alphabetique":
+                svg.selectAll(".bar")
+                .sort((a, b) => d3.ascending(a.application, b.application))
+                .transition().duration(300)
+                .attr("y", function(d, i) {
+                return y(i);
+              });
+                svg.append("g").selectAll("text")
+                .sort((a, b) => d3.ascending(a.application, b.application))
+                .transition().duration(300)
+                .attr("y", function(d, i) {
+                return y(i);
+              });
+
+
+            break;
+            
+          case "pourcentage":
+              svg.selectAll(".bar")
+              .sort((a, b) => d3.ascending(a.Pourcentage, b.Pourcentage))
+              .transition().duration(300)
+              .attr("y", function(d, i) {
+              return y(i);
+            });
+
+            svg.append("g").selectAll("text")
+              .sort((a, b) => d3.ascending(a.Pourcentage, b.Pourcentage))
+              .transition().duration(300)
+              .attr("y", function(d, i) {
+              return y(i);
+            });
+          break;
+        }//fin switch
+      }
+
+        function updateChart(svg,data)
+        {
+
+              data.sort(function(a, b) {
+              return d3.descending(a.application, b.application)
+            });
+      
+            
+            scaleX.domain([0, 1]);
+
+            y.domain(data.map(function(d,i) {return i; }))
+              .paddingInner(0.1);
+
+            
+
+            var g = svg.append("g"); 
+            
+            
+            g.attr("class", "y axis")
+              .attr("transform", `translate(${-10},${y.bandwidth()})`);
+            // Affichage des libéllés
+            g.selectAll("text")
+              .data(data)
+              .enter().append("text")
+              .text(function(d) { return d.application.toUpperCase(); })
+              .attr("class", "label")
+              .attr("x", 0)
+              .attr("y", function(d,i) { return y(i)+5; })
+              .attr("dy", -2);
+            
+            // Affichage des bar
+            test = svg.selectAll(".bar")
+              .data(data)
+              .enter()
+              test.append("rect")
+              .attr("class", "bar")
+              .attr("x", 100)
+              .attr("height", 15)
+              .attr("y", function(d, i) { return y(i) + 7.5; })
+              .attr("width", function(d) { return scaleX(d.Pourcentage) - 100; })
+              .on("mouseover", function(d) {
+              //do
+              })
+              .on("mouseout", function(d) {
+              //do_some
+              }); 
+              test.append("text")
+              .attr("x", function(d) { return scaleX(d.Pourcentage*1.1)})
+              .text(d => (d.Pourcentage*100).toFixed(2) + " %")
+              .attr("y", function(d, i) { return y(i) + 20.5; })
+        }
