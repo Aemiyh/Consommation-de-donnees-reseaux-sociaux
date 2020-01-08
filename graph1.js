@@ -1,16 +1,17 @@
  var margin = {
-        top: 20,
-        right: 20,
+        top: 10,
+        right: 30,
         bottom: 30,
         left: 40
       };
-    var width = 800 - margin.left - margin.right;
-    var height = 470 - margin.top - margin.bottom;
+    var width = 460 - margin.left - margin.right;
+    var height = 400 - margin.top - margin.bottom;
 
-    var chart1 = d3.select("body").append("svg")
+    var svg = d3.select("#graph1")
+        .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
-      .append("g")
+        .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
     
     console.log(height)
@@ -27,7 +28,7 @@
     d3.csv("donnees_App_Mobile.csv")
       .then(function(data) 
         {
-          updateChart(chart1,data,1);
+          updateChart(svg,data,1);
         });// fin load
     
 
