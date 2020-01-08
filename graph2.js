@@ -12,7 +12,7 @@ new d3plus.Treemap()
   .data(data) 
   .select("#graph2")
   .groupBy("id")
-  
+  .legend(false)
   .shapeConfig({
     backgroundImage: function (d) {
       return d.image;
