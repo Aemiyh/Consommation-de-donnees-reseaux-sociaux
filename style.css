@@ -114,3 +114,13 @@ img{
     padding: 1.5rem;
   }
 }
+
+
+.bar {
+  fill: steelblue;
+}
+   
+  
+.bar:hover {
+  fill: blue;
+}
