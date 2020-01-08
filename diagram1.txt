@@ -132,8 +132,8 @@
         //do_some
         }); 
         test.append("text")
-        .attr("x", function(d) { return scaleX(d.Pourcentage)})
-        .text(d => Math.round(d.Pourcentage *100, 2) + "%")
+        .attr("x", function(d) { return scaleX(d.Pourcentage*1.1)})
+        .text(d => (d.Pourcentage*100).toFixed(2) + " %")
         .attr("y", function(d, i) { return y(i) + 20.5; })
      } 
     
