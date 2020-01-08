@@ -64,12 +64,12 @@
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
     
     console.log(height)
-    var scaleX = d3.scaleLinear().range([100, 400]);
+    var scaleX = d3.scaleLinear().range([100, width]);
 
     var y = d3.scaleBand().range([height - 50, 0]);
 
     var xAxis = d3.axisTop(scaleX).ticks(10, "%");
-    var yAxis = d3.axisLeft(y);
+    //var yAxis = d3.axisLeft(y);
 
     var bandwidth = 0;
     
@@ -90,7 +90,7 @@
       });
       var maxFrequency = d3.max(data, function(d) { return d.frequency; });
       
-      scaleX.domain([0, 10]);
+      scaleX.domain([0, 1]);
 
       y.domain(data.map(function(d,i) { console.log("");return i; }))
         .paddingInner(0.1);
@@ -115,10 +115,11 @@
         .attr("y", function(d,i) { return y(i); })
         .attr("dy", -2);
       
-      // Affichage des baryyy
-      svg.selectAll(".bar"+int)
+      // Affichage des bar
+      test = svg.selectAll(".bar"+int)
         .data(data)
-        .enter().append("rect")
+        .enter()
+        test.append("rect")
         .attr("class", "bar"+int)
         .attr("x", 100)
         .attr("height", 15)
@@ -130,6 +131,10 @@
         .on("mouseout", function(d) {
         //do_some
         }); 
+        test.append("text")
+        .attr("x", function(d) { return scaleX(d.Pourcentage)})
+        .text(d => Math.round(d.Pourcentage *100, 2) + "%")
+        .attr("y", function(d, i) { return y(i) + 20.5; })
      } 
     
 
