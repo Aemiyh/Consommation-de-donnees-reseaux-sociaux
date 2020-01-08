@@ -17,7 +17,7 @@
    
     var scaleX = d3.scaleLinear().range([100, width]);
 
-    var y = d3.scaleBand().range([height - 50, 0]);
+    var y = d3.scaleBand().range([height - 50, 10]);
 
     var xAxis = d3.axisTop(scaleX).ticks(10, "%");
     //var yAxis = d3.axisLeft(y);
@@ -42,7 +42,7 @@
 
         svg.append("g")
           .attr("class", "xaxis")
-          .attr("transform", "translate(0," + -2 + ")")
+          .attr("transform", "translate(0," + 10 + ")")
           .call(xAxis);
 
         var g = svg.append("g"); 
@@ -57,7 +57,7 @@
           .text(function(d) { return d.application.toUpperCase(); })
           .attr("class", "label")
           .attr("x", 0)
-          .attr("y", function(d,i) { return y(i); })
+          .attr("y", function(d,i) { return y(i)+5; })
           .attr("dy", -2);
         
         // Affichage des bar
