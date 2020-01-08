@@ -1,3 +1,5 @@
+# Sujet: Consommation de données des réseaux sociaux sur mobiles (impact environnemental, comparaison avec les autres applications)
+
 # Topic: Data consumption of social networks on mobile devices (environmental impact, comparison with other applications)
 
 github page :https://aemiyh.github.io/Consommation-de-donnees-reseaux-sociaux/
@@ -57,4 +59,8 @@ github page :https://aemiyh.github.io/Consommation-de-donnees-reseaux-sociaux/
 ## Liens/ links
 [Page de cours Data Visualisation](https://lyondataviz.github.io/teaching/lyon1-m2/)
 
-
+## Sources
+- French:
+    Toutes les sources d'inspiration, texte, code, statistiques et images sont citées dans la partie "Sources" du wiki.
+- English:
+    All sources of inspiration, text, code, statistics and images are quoted in the "Sources" section of the wiki.
