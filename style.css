@@ -22,7 +22,7 @@ img{
   padding-right: 35px;
 }
 
-/* MASTHEAD AND SECTION CONTENT
+/* MASTHEAD
 -------------------------------------------------- */
 .masthead, section {
   min-height: 30rem;
@@ -47,7 +47,7 @@ section{
   padding: 0;
 }
 @media (min-width: 992px) {
-  .masthead, section {
+  .masthead {
     height: 100vh;
   }
   .masthead h1 {
@@ -62,10 +62,10 @@ section{
   text-align: center;
   margin: 5% 0;
 }
-.bounce {
-  -moz-animation: bounce 3s infinite;
-  -webkit-animation: bounce 3s infinite;
-  animation: bounce 3s infinite;
+.bounce:hover {
+  -moz-animation: bounce 2s infinite;
+  -webkit-animation: bounce 2s infinite;
+  animation: bounce 2s infinite;
 }
 
 @keyframes bounce {
