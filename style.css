@@ -13,20 +13,32 @@ img{
   padding-bottom: 1em;
 }
 
+.display-1{
+  font-family: "Cabin Sketch";
+  color: black;
+}
+
 .space-right{
   padding-right: 35px;
 }
 
-/* MASTHEAD CONTENT
+/* MASTHEAD AND SECTION CONTENT
 -------------------------------------------------- */
-.masthead {
+.masthead, section {
   min-height: 30rem;
   position: relative;
   display: table;
   width: 100%;
   height: auto;
+}
+
+.masthead{
   padding-top: 8rem;
   padding-bottom: 8rem;
+}
+
+section{
+  padding-top: 2rem;
 }
 
 .masthead h1 {
@@ -35,22 +47,20 @@ img{
   padding: 0;
 }
 @media (min-width: 992px) {
-  .masthead {
+  .masthead, section {
     height: 100vh;
   }
   .masthead h1 {
     font-size: 5.5rem;
   }
 }
-.display-1{
-  font-family: "Cabin Sketch";
-}
+
 
 /* ARROW SCROLL DOWN
 -------------------------------------------------- */
 .arrow {
   text-align: center;
-  margin: 8% 0;
+  margin: 5% 0;
 }
 .bounce {
   -moz-animation: bounce 3s infinite;
@@ -87,10 +97,6 @@ img{
 
 /* Featurettes
 ------------------------- */
-
-.featurette-divider {
-  margin: 1.5rem 0; /* Space out the Bootstrap <hr> more */
-}
 
 /* Thin out the marketing headings */
 .featurette-heading {
