@@ -25,7 +25,7 @@ var svg = d3.select("#graph3"),
               					return d.id.substring(0, d.id.lastIndexOf(".")); 
                       });
 
-    d3.csv("cons_data.csv", row, function(error, data) {
+    d3.csv("https://raw.githubusercontent.com/Aemiyh/Consommation-de-donnees-reseaux-sociaux/master/cons_data.csv", row, function(error, data) {
         //if (error) throw error;
 
         var root = stratify(data);
