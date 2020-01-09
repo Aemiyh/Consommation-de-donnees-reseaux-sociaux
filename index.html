@@ -74,7 +74,7 @@
     <section id="section2">
         <div class="container marketing">
             <div class="row align-items-center">
-                <div class="col-lg-8">
+                <div class="col-lg-6">
                     <div class="p-5">
                         <h2 class="display-4">Diagramme comparatif des applications mobiles</h2>
                         <p>Nous avons réalisé un comparatif des différentes types d'applications que nous possédons sur nos smartphones pendant deux semaines.
@@ -83,6 +83,13 @@
                     </div>
                 </div>
                 <div class="col-lg-6">
+                    <div id="graphdonut"></div>
+                </div>
+                <div class="col-lg-6">
+                    <select id="d3-dropdown">
+                        <option value="graph1"> Graphe node</option>
+                        <option value="graph2"> Graphe linéaire</option>
+                    </select>
                     <svg  id="graph3" width="800" height="900"></svg>
                 </div>
 
@@ -176,6 +183,7 @@
         <script src="animation.js"></script>
         <script src="graph3.js"></script>
         <script src="graph2.js"></script>
+        <script src="graph4Donut.js"></script>
 
     </main>
 </body>
