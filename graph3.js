@@ -1,7 +1,7 @@
 var svg = d3.select("#graph3"),
         width = +svg.attr("width"),
         height = +svg.attr("height"),
-        g = svg.append("g").attr("transform", "translate(20,0)");
+        g = svg.append("g").attr("transform", "translate(-400,0)");
 
 var xScale = d3.scaleLinear()
         .domain([0, 10])
@@ -20,23 +20,14 @@ var stratify = d3.stratify()
         .parentId(function (d) {
                 return d.id.substring(0, d.id.lastIndexOf("."));
         });
-d3.csv("https://raw.githubusercontent.com/Aemiyh/Consommation-de-donnees-reseaux-sociaux/master/cons_data.csv", row, function (data) {
+// d3.csv("https://raw.githubusercontent.com/Aemiyh/Consommation-de-donnees-reseaux-sociaux/master/cons_data.csv", row, function (data) {
+  d3.csv("https://raw.githubusercontent.com/Aemiyh/Consommation-de-donnees-reseaux-sociaux/master/conso_data.csv", row, function (data) {
         //if (error) throw error;
 
         var root = stratify(data);
         tree(root);
 
-        var link = g.selectAll(".link")
-                .data(root.descendants().slice(1))
-                .enter().append("path")
-                .attr("class", "link")
-                .attr("d", function (d) {
-                        return "M" + d.y + "," + d.x
-                                + "C" + (d.parent.y + 100) + "," + d.x
-                                + " " + (d.parent.y + 100) + "," + d.parent.x
-                                + " " + d.parent.y + "," + d.parent.x;
-                });
-
+       
 
         var node = g.selectAll(".node")
                 .data(root.descendants())
@@ -45,9 +36,7 @@ d3.csv("https://raw.githubusercontent.com/Aemiyh/Consommation-de-donnees-reseaux
                 .attr("transform", function (d) { return "translate(" + d.y + "," + d.x + ")"; });
 
 
-        node.append("circle")
-                .attr("r", 4);
-
+        
 
 
         var leafNodeG = g.selectAll(".node--leaf")
@@ -75,13 +64,6 @@ d3.csv("https://raw.githubusercontent.com/Aemiyh/Consommation-de-donnees-reseaux
                 });
 
 
-        var internalNode = g.selectAll(".node--internal");
-        internalNode.append("text")
-                .attr("y", -10)
-                .style("text-anchor", "middle")
-                .text(function (d) {
-                        return d.data.id.substring(d.data.id.lastIndexOf(".") + 1);
-                });
 
 
 
