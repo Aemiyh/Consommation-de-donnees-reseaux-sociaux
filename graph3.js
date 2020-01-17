@@ -1,7 +1,7 @@
 var svg = d3.select("#graph3"),
         width = +svg.attr("width"),
         height = +svg.attr("height"),
-        g = svg.append("g").attr("transform", "translate(-400,0)");
+        g = svg.append("g").attr("transform", "translate(-300,0)");
 
 var xScale = d3.scaleLinear()
         .domain([0, 10])
